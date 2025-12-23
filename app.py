@@ -1,17 +1,20 @@
 from flask import Flask
 from flask_pymongo import PyMongo
 
-from config import Config
+from .config import Config
 
-from routes.users import users_bp
-from routes.groups import groups_bp
-from routes.tasks import tasks_bp
-from routes.notification import notifications_bp
-from routes.memberships import memberships_bp
-from routes.reports import reports_bp
+from dotenv import load_dotenv
 
-from services.setup_db import setup_db
+from .routes.users import users_bp
+from .routes.groups import groups_bp
+from .routes.tasks import tasks_bp
+from .routes.notification import notifications_bp
+from .routes.memberships import memberships_bp
+from .routes.reports import reports_bp
 
+from .services.setup_db import setup_db
+
+load_dotenv()
 app = Flask(__name__)
 app.config.from_object(Config)
 mongo = PyMongo(app)
