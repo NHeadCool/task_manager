@@ -24,3 +24,4 @@ def create_user():
     result = mongo.db.users.insert_one(user)
     user["_id"] = str(result.inserted_id)
     return jsonify(user), 201
+

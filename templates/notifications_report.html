@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+    <h1 class="mb-4">Notifications Report</h1>
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>User</th>
+                <th>Task</th>
+                <th>Type</th>
+                <th>Message</th>
+                <th>Sent</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for n in notifications %}
+            <tr>
+                <td>{{ n.user_id }}</td>
+                <td>{{ n.task_id }}</td>
+                <td>{{ n.type }}</td>
+                <td>{{ n.message }}</td>
+                <td>{{ n.is_sent }}</td>
+                <td>{{ n.created_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
