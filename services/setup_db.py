@@ -1,42 +1,60 @@
-from pymongo import MongoClient
-import os
+from task_manager.utils.datetime_utils import get_current_datetime
 
 def setup_db(mongo):
-    """Инициализация базы при первом запуске."""
-    client = MongoClient(os.getenv("MONGO_URI"))
-    db = client['task_manager']
+    db = mongo.db
 
-    # Создаем начальных пользователей
     if db.users.count_documents({}) == 0:
         users = [
-            {"name": "Nikita", "email": "nikita@example.com"},
-            {"name": "Kolia", "email": "kolia@example.com"},
-            {"name": "Gleb", "email": "gleb@example.com"}
+            {"name": "Nikita", "email": "nikita@example.com", "created_at": get_current_datetime()},
+            {"name": "Kolia", "email": "kolia@example.com", "created_at": get_current_datetime()},
+            {"name": "Gleb", "email": "gleb@example.com", "created_at": get_current_datetime()}
         ]
         db.users.insert_many(users)
         print("Users initialized")
 
-    # Создаем начальные группы
     if db.groups.count_documents({}) == 0:
+        nikita_id = db.users.find_one({"name": "Nikita"})["_id"]
+        gleb_id = db.users.find_one({"name": "Gleb"})["_id"]
+
         groups = [
-            {"name": "UCD Module", "description": "Группа модульного задания по UCD", "created_by": "Nikita"},
-            {"name": "Architecture Module", "description": "Группа модульного задания по Архитектуре", "created_by": "Gleb"}
+            {"name": "UCD Module", "description": "Group of UCD Module",
+             "created_by": nikita_id, "created_at": get_current_datetime()},
+            {"name": "Architecture Module", "description": "Group of Architecture Module",
+             "created_by": gleb_id, "created_at": get_current_datetime()}
         ]
         db.groups.insert_many(groups)
         print("Groups initialized")
 
-    # Создаем начальные задачи
+    if db.group_memberships.count_documents({}) == 0:
+        ucd_group_id = db.groups.find_one({"name": "UCD Module"})["_id"]
+        arch_group_id = db.groups.find_one({"name": "Architecture Module"})["_id"]
+        users = list(db.users.find({}))
+        memberships = [
+            {"user_id": users[0]["_id"], "group_id": ucd_group_id, "role": "admin", "joined_at": get_current_datetime()},
+            {"user_id": users[1]["_id"], "group_id": ucd_group_id, "role": "member", "joined_at": get_current_datetime()},
+            {"user_id": users[2]["_id"], "group_id": arch_group_id, "role": "admin", "joined_at": get_current_datetime()},
+        ]
+        db.group_memberships.insert_many(memberships)
+        print("Group memberships initialized")
+
     if db.tasks.count_documents({}) == 0:
+        ucd_group_id = db.groups.find_one({"name": "UCD Module"})["_id"]
+        nikita_id = db.users.find_one({"name": "Nikita"})["_id"]
         tasks = [
             {
-                "group_id": str(db.groups.find_one({"name": "UCD Module"})["_id"]),
-                "title": "Сделать Job Stories",
-                "description": "Составить Job stories для проекта",
+                "group_id": ucd_group_id,
+                "title": "Do Job Stories",
+                "description": "Do Job stories for project",
                 "priority": "high",
                 "status": "created",
+                "deadline": None,
+                "created_by": nikita_id,
                 "assigned_to": [],
-                "deadline": None
+                "created_at": get_current_datetime()
             }
         ]
         db.tasks.insert_many(tasks)
         print("Tasks initialized")
+
+    if db.notifications.count_documents({}) == 0:
+        print("Notifications collection ready")

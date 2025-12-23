@@ -7,6 +7,7 @@ from routes.users import users_bp
 from routes.groups import groups_bp
 from routes.tasks import tasks_bp
 from routes.notification import notifications_bp
+from routes.memberships import memberships_bp
 
 from services.setup_db import setup_db
 
@@ -21,6 +22,7 @@ app.register_blueprint(users_bp, url_prefix="/api/users")
 app.register_blueprint(groups_bp, url_prefix="/api/groups")
 app.register_blueprint(tasks_bp, url_prefix="/api/tasks")
 app.register_blueprint(notifications_bp, url_prefix="/api/notifications")
+app.register_blueprint(memberships_bp, url_prefix="/api/memberships")
 
 @app.route("/test/db")
 def test_db():

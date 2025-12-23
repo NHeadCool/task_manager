@@ -1,15 +1,17 @@
-from datetime import datetime
+from task_manager.utils.datetime_utils import get_current_datetime
+
 
 class Task:
-    def __init__(self, group_id, title, description, priority="medium", status="created", assigned_to=None, deadline=None):
+    def __init__(self, group_id, title, description, priority, status="created", deadline=None, created_by=None, assigned_to=None, created_at=None):
         self.group_id = group_id
         self.title = title
         self.description = description
         self.priority = priority
         self.status = status
-        self.assigned_to = assigned_to or []
         self.deadline = deadline
-        self.created_at = datetime.utcnow()
+        self.created_by = created_by
+        self.assigned_to = assigned_to or []
+        self.created_at = created_at or get_current_datetime()
 
     def to_dict(self):
         return {
@@ -18,7 +20,8 @@ class Task:
             "description": self.description,
             "priority": self.priority,
             "status": self.status,
-            "assigned_to": self.assigned_to,
             "deadline": self.deadline,
-            "created_at": self.created_at.isoformat()
+            "created_by": self.created_by,
+            "assigned_to": self.assigned_to,
+            "created_at": self.created_at
         }
