@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_pymongo import PyMongo
 
-from .config import Config
+from .config import  Config
 
 from dotenv import load_dotenv
 
