@@ -1,4 +1,16 @@
-def send_notification(user_id, message):
-    # просто вывод в консоль для теста
-    print(f"Notification to {user_id}: {message}")
-    return True
+from flask import current_app
+from telegram_service import send_telegram_message
+
+
+def process_notification(notification):
+    success = send_telegram_message(
+        chat_id=notification["chat_id"],
+        text=notification["message"]
+    )
+
+    if success:
+        mongo = current_app.config['MONGO']
+        mongo.db.notifications.update_one(
+            {"_id": notification["_id"]},
+            {"$set": {"is_sent": True}}
+        )

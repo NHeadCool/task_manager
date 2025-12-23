@@ -1,4 +1,4 @@
-from task_manager.utils import get_current_datetime
+from task_manager.utils.datetime_utils import get_current_datetime
 
 class Notification:
     def __init__(self, user_id, task_id, type, message, is_sent=False, created_at=None):
