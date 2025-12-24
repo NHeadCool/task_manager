@@ -29,9 +29,18 @@ def tasks_report():
     mongo = current_app.config['MONGO']
     tasks = list(mongo.db.tasks.find({}, {"_id": 0, "title": 1, "description": 1, "priority": 1,
                                           "status": 1, "deadline": 1, "created_by": 1, "assigned_to": 1, "created_at": 1}))
+
+    groups = mongo.db.groups.find({}, {"name": 1})
+
+    groups_map = {
+        str(g["_id"]): g["name"]
+        for g in groups
+    }
+
     for t in tasks:
         t['created_at'] = format_datetime_safe(t.get('created_at'))
         t['deadline'] = format_datetime_safe(t.get('deadline'))
+        t["group_name"] = groups_map.get(str(t.get("group_id")), "—")
     return render_template("tasks_report.html", tasks=tasks)
 
 @reports_bp.route("/notifications")

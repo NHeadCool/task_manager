@@ -6,7 +6,7 @@ class Group:
         self.name = name
         self.description = description
         self.created_by = created_by  # ObjectId пользователя
-        self.created_at = created_at or get_current_datetime()
+        self.created_at = get_current_datetime()
 
     def to_dict(self):
         return {

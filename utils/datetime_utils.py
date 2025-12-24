@@ -4,11 +4,9 @@ import requests
 from datetime import datetime
 
 def get_current_datetime():
-    """
-    Получает текущую дату/время через внешний API.
-    Если API недоступно, возвращает локальное время UTC.
-    """
     URL = os.getenv("CURRENT_TIME_API_SERVICE_URI")
+
+
     try:
         response = requests.get(URL, timeout=5)
         response.raise_for_status()
