@@ -1,3 +1,7 @@
+"""
+Функция определяет моментальное время из внешнего API (Sber).
+Нужно, чтобы приписать к данным created_at
+"""
 import os
 
 import requests
@@ -5,7 +9,6 @@ from datetime import datetime
 
 def get_current_datetime():
     URL = os.getenv("CURRENT_TIME_API_SERVICE_URI")
-
 
     try:
         response = requests.get(URL, timeout=5)
@@ -15,5 +18,5 @@ def get_current_datetime():
             return current_time
     except Exception:
         pass
-    # fallback на локальное время
+
     return datetime.utcnow().isoformat()

@@ -1,5 +1,7 @@
 from task_manager.utils.datetime_utils import get_current_datetime
-
+"""
+Определяем класс Task с атрибутами
+"""
 
 class Task:
     def __init__(self, group_id, title, description, priority, status="created", deadline=None, created_by=None, assigned_to=None, created_at=None):

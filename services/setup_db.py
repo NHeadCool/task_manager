@@ -1,5 +1,9 @@
 from task_manager.utils.datetime_utils import get_current_datetime
-
+"""
+Сервис нужен чтобы создать бд при первом запуске. setup_db В том числе проверяет
+есть таблицы или нет, заполнены или нет и заполняет. Нужно чтобы были первые данные
+удобно для отладки
+"""
 def setup_db(mongo):
     db = mongo.db
 

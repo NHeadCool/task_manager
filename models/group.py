@@ -1,5 +1,7 @@
 from task_manager.utils.datetime_utils import get_current_datetime
-
+"""
+Определяем класс Group с атрибутами
+"""
 
 class Group:
     def __init__(self, name, description, created_by, created_at=None):

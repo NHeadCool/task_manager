@@ -1,5 +1,8 @@
 from task_manager.utils.datetime_utils import get_current_datetime
+"""
+Определяем класс Membership с атрибутами. Он поможет установить информацию о группе
 
+"""
 
 class Membership:
     def __init__(self, user_id, group_id, role="member"):

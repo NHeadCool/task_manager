@@ -1,6 +1,8 @@
 from flask import current_app
 from telegram_service import send_telegram_message
-
+"""
+Сервис по отправлке уведомлений. Пока Только в telegram. 
+"""
 
 def process_notification(notification):
     success = send_telegram_message(

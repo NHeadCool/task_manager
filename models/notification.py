@@ -1,4 +1,7 @@
 from task_manager.utils.datetime_utils import get_current_datetime
+"""
+Определяем класс Notification с атрибутами, пока задает структуру
+"""
 
 class Notification:
     def __init__(self, user_id, task_id, type, message, is_sent=False, created_at=None):

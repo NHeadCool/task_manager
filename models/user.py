@@ -1,4 +1,7 @@
 from task_manager.utils.datetime_utils import get_current_datetime
+"""
+Определяем класс User с атрибутами
+"""
 
 class User:
     def __init__(self, name, email):

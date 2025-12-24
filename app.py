@@ -1,3 +1,8 @@
+"""
+Инициализирует приложение Flask
+Регистрирует blueprintы
+"""
+
 from flask import Flask
 from flask_pymongo import PyMongo
 
@@ -21,7 +26,6 @@ mongo = PyMongo(app)
 
 app.config['MONGO'] = mongo
 
-# Регистрация Blueprints
 app.register_blueprint(users_bp, url_prefix="/api/users")
 app.register_blueprint(groups_bp, url_prefix="/api/groups")
 app.register_blueprint(tasks_bp, url_prefix="/api/tasks")
@@ -29,6 +33,7 @@ app.register_blueprint(notifications_bp, url_prefix="/api/notifications")
 app.register_blueprint(memberships_bp, url_prefix="/api/memberships")
 app.register_blueprint(reports_bp)
 
+#Тестовый запрос, понять подключилась ли база данных
 @app.route("/test/db")
 def test_db():
     try:
@@ -41,5 +46,5 @@ def test_db():
 
 if __name__ == "__main__":
     with app.app_context():
-        setup_db(mongo)  # передаём объект PyMongo
+        setup_db(mongo)
     app.run(debug=True)

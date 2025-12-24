@@ -1,3 +1,6 @@
+"""
+Конфигурация + хранит значения из env. Удобно
+"""
 import os
 from dotenv import load_dotenv
 

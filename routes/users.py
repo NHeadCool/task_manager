@@ -1,3 +1,7 @@
+"""
+Маршруты для users. Опр запросы Get (получить весь список пользователей)
+и POST (чтобы создать пользователя)
+"""
 from flask import Blueprint, request, jsonify, current_app, current_app
 from task_manager.utils.datetime_utils import get_current_datetime
 
